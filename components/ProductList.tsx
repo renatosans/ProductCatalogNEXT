@@ -81,7 +81,7 @@ export const ProductList = ({ products }) => {
 			<Button variant="outlined" startIcon={<DeleteIcon />} onClick={deleteProd} >Excluir</Button>
 			<Button variant="outlined" startIcon={<AddCircleIcon />} onClick={insertProd} >Novo</Button>
 
-			<DataGrid columns={columns} rows={products} pageSize={5} rowsPerPageOptions={[5]} checkboxSelection
+			<DataGrid columns={columns} rows={products} pageSizeOptions={[5, 10, 15]} checkboxSelection
                 onSelectionModelChange={setSelectionModel} selectionModel={selectionModel} />
 		</>
 	)

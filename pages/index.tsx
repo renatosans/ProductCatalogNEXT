@@ -1,17 +1,19 @@
 import { GetServerSideProps } from 'next'
-import { useState, useEffect } from 'react'
 import { Layout } from '../components/Layout'
 import { productType, categoryType } from '../utils/types'
 import { ProductCard } from '../components/ProductCard'
 import { ProductList } from '../components/ProductList'
+import { CategorySelect } from '../components/CategorySelect'
 
 
-const HomePage = ({catalogo}: any) => {
+const HomePage = ({catalogo, categorias}: any) => {
 	// const [catalogo, setCatalogo] = useState<productType[]>([]);
 	// const [categories, setCategories] = useState<categoryType[]>([])
 
 	return (
 		<Layout>
+			<CategorySelect categories={categorias}></CategorySelect>
+			<br/>
 			<ProductList products={catalogo}></ProductList>
 
 			<div className="grid gap-4 grid-cols-1 md:grid-cols-3">{
@@ -24,14 +26,19 @@ const HomePage = ({catalogo}: any) => {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
+	let response = null
 	const hostAddress = 'http://' + context.req.headers.host;
 
-	const response = await fetch(`${hostAddress}/api/products`)
+	response = await fetch(`${hostAddress}/api/products`)
 	const catalogo = await response.json()
+
+	response = await fetch(`${hostAddress}/api/categories`)
+    const categorias = await response.json()
 
 	return {
 		props: {
 			catalogo,
+			categorias,
 		},
 	}
 }

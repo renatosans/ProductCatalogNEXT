@@ -6,8 +6,7 @@ import { notification } from '../utils/notification'
 
 type props = {
     parentRef: {
-        closeForm: () => void;
-        getCatalogo: () => void;	
+		toggle: () => void;
 	}
 }
 
@@ -51,8 +50,7 @@ export const ProductForm = ({ parentRef }: React.PropsWithChildren<props>) => {
 
 		router.push("/");
 		toast.success('Produto salvo com sucesso', notification.options as ToastOptions);
-		parentRef.closeForm();
-		parentRef.getCatalogo(); // faz o referesh do catalogo de produtos
+		parentRef.toggle(); // fecha o dialogo e faz o referesh do catalogo de produtos
 	};
 
 	const onChange = (e) => {

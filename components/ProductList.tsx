@@ -1,5 +1,5 @@
-import ReactDom from 'react-dom';
 import React, { useState } from 'react';
+import ReactDom from 'react-dom/client';
 import { useRouter } from "next/router";
 import Draggable from 'react-draggable'; // Bug found while dragging form ( Unmonted during event )
 // Bug can be reproduced by clicking outside the form and dragging at the same time  (de maneira nervosa)
@@ -9,7 +9,7 @@ import { DataGrid } from '@mui/x-data-grid';
 import { Button, Dialog } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
-import toast, { Toaster } from "react-hot-toast";
+import toast, { Toaster, ToastOptions } from "react-hot-toast";
 import { notification } from "../utils/notification";
 import { ProductForm } from '../components/ProductForm';
 import { ClickableField } from "../components/ClickableField";
@@ -45,10 +45,10 @@ export const ProductList = ({ products }) => {
 	const [selectionModel, setSelectionModel] = useState([]);
 
 	function deleteProd() {
-		const root = ReactDom.createRoot(document.getElementById('container'));
+		const root = ReactDom.createRoot(document.getElementById('container') as HTMLElement);
 
 		if (selectionModel.length < 1){
-            toast.error("Favor selecionar os produtos para exclusão.", notification.options);
+            toast.error("Favor selecionar os produtos para exclusão.", notification.options as ToastOptions);
             return;
 		}
 
@@ -74,7 +74,7 @@ export const ProductList = ({ products }) => {
 
 			<Draggable>
 				<Dialog open={open} onClose={toggle} BackdropProps={{ style: { backgroundColor: "transparent" } }} >
-					<ProductForm parentRef={{ toggle, getCatalogo }} ></ProductForm>
+					<ProductForm parentRef={{ toggle }} ></ProductForm>
 				</Dialog>
 			</Draggable>
 

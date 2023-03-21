@@ -10,18 +10,23 @@ import { Button, Dialog } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import toast, { Toaster, ToastOptions } from "react-hot-toast";
+import { productType } from '../utils/types';
 import { notification } from "../utils/notification";
 import { ProductForm } from '../components/ProductForm';
 import { ClickableField } from "../components/ClickableField";
 import ConfirmationDialog from '../components/ConfirmationDialog';
 
 
-export const ProductList = ({ products }) => {
+type props = {
+	products: productType[];
+}
+
+export const ProductList = ({ products }: React.PropsWithChildren<props>) => {
     const router = useRouter();
 
     const columns = [
 		{ field: 'id', headerName: 'id', width: 80 },
-		{ field: 'nome', headerName: 'Nome', width: 120, renderCell: (params) =>
+		{ field: 'nome', headerName: 'Nome', width: 120, renderCell: (params: any) =>
             <ClickableField route={`/?id=${params.row.id}`} label={params.row.nome} dialogRef={{ open, setOpen }}></ClickableField> },
 		{ field: 'preco', headerName: 'Preço', width: 80 },
 		{ field: 'descricao', headerName: 'Descrição', width: 160 }
@@ -81,7 +86,7 @@ export const ProductList = ({ products }) => {
 			<Button variant="outlined" startIcon={<DeleteIcon />} onClick={deleteProd} >Excluir</Button>
 			<Button variant="outlined" startIcon={<AddCircleIcon />} onClick={insertProd} >Novo</Button>
 
-			<DataGrid columns={columns} rows={products} pageSizeOptions={[5, 10, 15]} checkboxSelection
+			<DataGrid columns={columns} rows={products} pageSizeOptions={[5, 10, 15]} checkboxSelection={true}
                 onSelectionModelChange={setSelectionModel} selectionModel={selectionModel} />
 		</>
 	)

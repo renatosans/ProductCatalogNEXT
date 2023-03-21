@@ -17,6 +17,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 }
 
 // TODO -  limitar o upload de arquivo somente aos tipos  .gif, .jpg, .png
+// use o INSOMNIA para testar o endpoint (http://localhost:3000/api/products)  use sampleData.json
 const saveProduct = async (req: NextApiRequest, res: NextApiResponse<productType | string>) => {
 	const { nome, preco, descricao, foto, formatoImagem } = req.body;
 

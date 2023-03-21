@@ -1,7 +1,7 @@
 # Product Catalog using Next.js, Prisma and MySQL
 
 ## Screenshot
-![screenshot](public/images/screenshot.png)
+![screenshot](public/img/screenshot.png)
 
 ## Steps to run the project:
 - NPM INSTALL

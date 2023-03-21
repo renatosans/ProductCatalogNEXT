@@ -2,8 +2,12 @@ import { useState } from 'react';
 import { Button } from '@mui/material';
 import { Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
 
+type props = {
+    message: string;
+    handleResult: (result: boolean) => void;
+}
 
-export const ConfirmationDialog = ({message, handleResult }) => {
+export default function ConfirmationDialog({message, handleResult }: React.PropsWithChildren<props>) {
     const [open, setOpen] = useState(true);
 
     const confirm = () => {

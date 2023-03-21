@@ -1,24 +1,14 @@
+import { GetServerSideProps } from 'next'
 import { useState, useEffect } from 'react'
 import { Layout } from '../components/Layout'
-import { productType } from '../utils/types'
+import { productType, categoryType } from '../utils/types'
 import { ProductCard } from '../components/ProductCard'
 import { ProductList } from '../components/ProductList'
 
 
-const HomePage = () => {
-	// const [categories, setCategories] = useState(productCategories)
-	const [catalogo, setCatalogo] = useState<productType[]>([]);
-
-	const getCatalogo = async () => {
-		const response = await fetch('api/products')
-		.then((response) => response.json());
-
-		setCatalogo(response);
-	}
-
-	useEffect(() => {
-		getCatalogo();
-	}, []);
+const HomePage = ({catalogo}: any) => {
+	// const [catalogo, setCatalogo] = useState<productType[]>([]);
+	// const [categories, setCategories] = useState<categoryType[]>([])
 
 	return (
 		<Layout>
@@ -26,11 +16,24 @@ const HomePage = () => {
 
 			<div className="grid gap-4 grid-cols-1 md:grid-cols-3">{
 				catalogo&&
-				catalogo.map( (product) => <ProductCard produto={product} key={product.id} /> )
+				catalogo.map( (product: productType) => <ProductCard produto={product} key={product.id} /> )
 			}
 			</div>
 		</Layout>
 	)
+}
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+	const hostAddress = 'http://' + context.req.headers.host;
+
+	const response = await fetch(`${hostAddress}/api/products`)
+	const catalogo = await response.json()
+
+	return {
+		props: {
+			catalogo,
+		},
+	}
 }
 
 /*

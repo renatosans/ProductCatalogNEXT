@@ -1,5 +1,5 @@
 
-export type itemListType = {
+export type dialogType = {
     open: boolean;
     setOpen: (value: boolean) => void;
 }

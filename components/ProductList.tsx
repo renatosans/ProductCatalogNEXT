@@ -13,7 +13,7 @@ import toast, { Toaster, ToastOptions } from "react-hot-toast";
 import { notification } from "../utils/notification";
 import { ProductForm } from '../components/ProductForm';
 import { ClickableField } from "../components/ClickableField";
-import { ConfirmationDialog } from '../components/ConfirmationDialog';
+import ConfirmationDialog from '../components/ConfirmationDialog';
 
 
 export const ProductList = ({ products }) => {

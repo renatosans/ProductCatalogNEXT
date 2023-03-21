@@ -1,12 +1,12 @@
-import { useRouter } from "next/router";
 import React from "react";
-import { itemListType } from "../utils/types";
+import { useRouter } from "next/router";
+import { dialogType } from "../utils/types";
 
 
 type props = {
     route: string;
     label: string;
-    dialogRef: itemListType;
+    dialogRef: dialogType;
 }
 
 export const ClickableField = ({ route, label, dialogRef }: React.PropsWithChildren<props>) => {

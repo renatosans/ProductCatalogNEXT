@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import { useState, useEffect, FormEvent } from 'react'
-import toast, { Toaster, ToastOptions } from 'react-hot-toast'
 import { notification } from '../utils/notification'
+import toast, { Toaster, ToastOptions } from 'react-hot-toast'
 
 
 type props = {
@@ -34,17 +34,16 @@ export const ProductForm = ({ parentRef }: React.PropsWithChildren<props>) => {
 				await fetch(`/api/products`, {
 					method: 'POST',
 					headers: { 'Content-Type': 'application/json', },
-					body: JSON.stringify(product),
-				})
+					body: JSON.stringify(product), })
 			} else {
 				await fetch(`/api/products/${router.query.id}`, {
 					method: 'PUT',
 					headers: { 'Content-Type': 'application/json', },
-					body: JSON.stringify(product),
-				})
+					body: JSON.stringify(product), })
 			}
 		} catch (error) {
-			toast.error(error.message, notification.options);
+			const lastError = error as Error;
+			toast.error(lastError.message, notification.options as ToastOptions);
 			return;
 		}
 
@@ -53,13 +52,14 @@ export const ProductForm = ({ parentRef }: React.PropsWithChildren<props>) => {
 		parentRef.toggle(); // fecha o dialogo e faz o referesh do catalogo de produtos
 	};
 
-	const onChange = (e) => {
+	const onChange = (e: any) => {
 		if (e.target.type === 'file') {
 			const file = e.target.files[0];
 			// Reads the file using the FileReader API
 			const reader = new FileReader();
 			reader.onloadend = () => {
-				const fileData = reader.result.split(';base64,');
+				const result = reader.result as string;
+				const fileData = result.split(';base64,');
 				let formato = fileData[0].replace('data:', '') + ';base64'
 				setProduct({...product, 'foto': fileData[1], 'formatoImagem': formato, })
 			}
@@ -70,7 +70,7 @@ export const ProductForm = ({ parentRef }: React.PropsWithChildren<props>) => {
 	};
 
 	useEffect(() => {
-		const getProduct = async (id) => {
+		const getProduct = async (id: number) => {
 			const response = await fetch(`/api/products/${id}`);
 			const product = await response.json();
 
@@ -78,7 +78,7 @@ export const ProductForm = ({ parentRef }: React.PropsWithChildren<props>) => {
 		}
 
 		if (router.query.id) {
-			getProduct(router.query.id);
+			getProduct(parseInt(router.query.id as string));
 		}
 	}, [])
 
@@ -125,7 +125,7 @@ export const ProductForm = ({ parentRef }: React.PropsWithChildren<props>) => {
 					<label htmlFor="foto" className="block text-gray-700 text-sm font-bold md-2">
 						Foto
 					</label>
-					<div className="bg-gray-400 flex flex-col w-48">
+					<div className="bg-gray-400 flex flex-col w-60">
 						<input type="file" name="foto" accept=".gif,.jpg,.jpeg,.png" onChange={onChange} />
 						<img className="w-full" src={"data:" + product.formatoImagem + ", " + product.foto} alt={product.nome}></img>
 					</div>

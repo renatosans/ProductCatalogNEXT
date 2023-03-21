@@ -5,7 +5,7 @@ import Draggable from 'react-draggable'; // Bug found while dragging form ( Unmo
 // Bug can be reproduced by clicking outside the form and dragging at the same time  (de maneira nervosa)
 // This bug also happens if you click on SAVE and click outside the form at the same time
 // Possible fix :  remove 'react-draggable'
-import { DataGrid } from '@mui/x-data-grid';
+import { DataGrid, GridRowSelectionModel } from '@mui/x-data-grid';
 import { Button, Dialog } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
@@ -47,7 +47,7 @@ export const ProductList = ({ products }: React.PropsWithChildren<props>) => {
         setOpen(current => !current);
     }
 
-	const [selectionModel, setSelectionModel] = useState([]);
+	const [selectionModel, setSelectionModel] = useState<GridRowSelectionModel>([]);
 
 	function deleteProd() {
 		const root = ReactDom.createRoot(document.getElementById('container') as HTMLElement);
@@ -87,7 +87,7 @@ export const ProductList = ({ products }: React.PropsWithChildren<props>) => {
 			<Button variant="outlined" startIcon={<AddCircleIcon />} onClick={insertProd} >Novo</Button>
 
 			<DataGrid columns={columns} rows={products} pageSizeOptions={[5, 10, 15]} checkboxSelection={true}
-                onSelectionModelChange={setSelectionModel} selectionModel={selectionModel} />
+                onRowSelectionModelChange={setSelectionModel} rowSelectionModel={selectionModel} />
 		</>
 	)
 }

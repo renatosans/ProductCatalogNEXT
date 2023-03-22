@@ -8,11 +8,11 @@ import { CategorySelect } from '../components/CategorySelect'
 
 const HomePage = ({catalogo, categorias}: any) => {
 	// const [catalogo, setCatalogo] = useState<productType[]>([]);
-	// const [categories, setCategories] = useState<categoryType[]>([])
+	// const [categories, setCategories] = useState<categoryType[]>([]);
 
 	return (
 		<Layout>
-			<CategorySelect categories={categorias}></CategorySelect>
+			<CategorySelect></CategorySelect>
 			<br/>
 			<ProductList products={catalogo}></ProductList>
 

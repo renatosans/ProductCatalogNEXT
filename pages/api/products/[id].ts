@@ -18,25 +18,25 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 }
 
 const getProduct = async (req: NextApiRequest, res: NextApiResponse<productType | string>) => {
-	const { id } = req.params || req.query;
+	const { id } = req.query;
 
 	prisma.produto.findUnique({ where: { id: Number(id) } })
-	.then((produto) => res.send(produto))
+	.then((produto: any) => res.send(produto))
 	.catch((error) => res.send("Error: " + error.message))
 }
 
 const deleteProduct = async (req: NextApiRequest, res: NextApiResponse<productType | string>) => {
-	const { id } = req.params || req.query;
+	const { id } = req.query;
 
 	prisma.produto.delete({ where: { id: Number(id) } })
-	.then((result) => res.send(result))
+	.then((result: any) => res.send(result))
 	.catch((error) => res.send("Error: " + error.message))
 }
 
 const updateProduct = async (req: NextApiRequest, res: NextApiResponse<productType | string>) => {
-	const { id } = req.params || req.query;
+	const { id } = req.query;
 
 	prisma.produto.update({ where: { id: Number(id) }, data: req.body })
-	.then((result) => res.send(result))
+	.then((result: any) => res.send(result))
 	.catch((error) => res.send("Error: " + error.message))
 }

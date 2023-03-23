@@ -28,11 +28,12 @@ export const CategorySelect = () => {
 	return (
         <div className="flex flex-row items-center">
           <p className="mr-2.5">Categoria: </p>
-          <select className="mr-2.5" onChange={(e) => setSelected(parseInt(e.target.value))} >{
-            categories?
-              categories.map( (categoria: categoryType) => <option value={categoria.id} key={categoria.id} >{categoria.nome}</option> ) :
-              <option value={0} key={0} >Nenhuma categoria encontrada</option>
-          }
+          <select className="mr-2.5" onChange={(e) => setSelected(parseInt(e.target.value))} >
+            <option value={0} key={0}>{ categories ? "Selecione uma opção" : "Nenhuma categoria encontrada" }</option>
+            {
+              categories&&
+              categories.map( (categoria: categoryType) => <option value={categoria.id} key={categoria.id} >{categoria.nome}</option> )
+            }
           </select>
           <button className="hover:bg-gray-300 hover:rounded-[50%] bg-transparent border-0 w-7 h-7" style={{'backgroundImage': 'url("icons/circle_minus.svg")'}} onClick={deleteCategory} />
           <button className="hover:bg-gray-300 hover:rounded-[50%] bg-transparent border-0 w-7 h-7" style={{'backgroundImage': 'url("icons/circle_plus.svg")'}} onClick={createCategory} />

@@ -27,6 +27,9 @@ const saveProduct = async (req: NextApiRequest, res: NextApiResponse<productType
 	.catch((error) => res.status(500).send("Error: " + error.message))
 }
 
+// TODO - evitar ficar trafegando as imagens desnecessariamente, limitar os campos
+// prisma.produto.findMany({ select: { id: true, nome: true, preco: true, descricao: true} })
+// em último caso usar GraphQL
 const getProducts = async (req: NextApiRequest, res: NextApiResponse<productType[] | string>) => {
     prisma.produto.findMany()
     .then((produtos: any) => res.send(produtos))

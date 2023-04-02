@@ -1,6 +1,6 @@
 import { GetServerSideProps } from 'next'
 import { Layout } from '../components/Layout'
-import { productType, categoryType } from '../utils/types'
+import { productType, categoryType, supplierType } from '../utils/types'
 import { ProductCard } from '../components/ProductCard'
 import { ProductList } from '../components/ProductList'
 import { CategorySelect } from '../components/CategorySelect'

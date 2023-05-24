@@ -9,6 +9,7 @@ import Draggable from 'react-draggable'; // Bug found while dragging form ( Unmo
 // Update : the bug is not in 'react-draggable',  it can be fixed removing the MATERIAL UI Dialog Component,
 // creating some modal without backdrop or setting 'No Backdrop'
 // example:  to get rid of the backdrop, you can set the data-mdb-backdrop attribute to false
+// allow the modal to be closed only on clicking the 'close button', not by clicking outside the modal
 import { DataGrid, GridRowSelectionModel } from '@mui/x-data-grid';
 import { Button, Dialog } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';

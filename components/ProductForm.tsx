@@ -1,12 +1,13 @@
 import { useRouter } from 'next/router'
 import { useState, useEffect, FormEvent } from 'react'
+import { closeReason } from '../utils/types'
 import { notification } from '../utils/notification'
 import toast, { Toaster, ToastOptions } from 'react-hot-toast'
 
 
 type props = {
     parentRef: {
-		toggle: () => void;
+		handleClose: (reason: closeReason) => void;
 	}
 }
 
@@ -49,7 +50,7 @@ export const ProductForm = ({ parentRef }: React.PropsWithChildren<props>) => {
 
 		router.push("/");
 		toast.success('Produto salvo com sucesso', notification.options as ToastOptions);
-		parentRef.toggle(); // fecha o dialogo e faz o referesh do catalogo de produtos
+		parentRef.handleClose('submitClicked'); // fecha o dialogo e faz o referesh do catalogo de produtos
 	};
 
 	const onChange = (e: any) => {

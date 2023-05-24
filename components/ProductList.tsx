@@ -15,7 +15,7 @@ import { Button, Dialog } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import toast, { Toaster, ToastOptions } from "react-hot-toast";
-import { productType } from '../utils/types';
+import { productType, closeReason } from '../utils/types';
 import { notification } from "../utils/notification";
 import { ProductForm } from '../components/ProductForm';
 import { ClickableField } from "../components/ClickableField";
@@ -46,10 +46,15 @@ export const ProductList = ({ products }: React.PropsWithChildren<props>) => {
 			.catch((error) => { toast.error(error.message) } );
 	}
 
-    const toggle = () => {
-		// limpa a seleção e muda o estado do dialogo
-		setSelectionModel([]);
-        setOpen(current => !current);
+	// O único motivo de fechamento permitido no momento é 'submitClicked'
+	// Backdrop desabilitado/ EscKey desabilitada ( to avoid 'Unmonted during event' problem )
+    const handleClose = (reason: closeReason) => {
+		console.log(reason);
+		if (reason === 'submitClicked') {
+			// limpa a seleção e muda o estado do dialogo
+			setSelectionModel([]);
+			setOpen(false);
+		}
     }
 
 	const [selectionModel, setSelectionModel] = useState<GridRowSelectionModel>([]);
@@ -83,8 +88,8 @@ export const ProductList = ({ products }: React.PropsWithChildren<props>) => {
 			<div id="container"></div>
 
 			<Draggable>
-				<Dialog open={open} onClose={toggle} BackdropProps={{ style: { backgroundColor: "transparent" } }} >
-					<ProductForm parentRef={{ toggle }} ></ProductForm>
+				<Dialog open={open} onClose={(_, reason) => handleClose(reason)} BackdropProps={{ style: { backgroundColor: "transparent" } }} >
+					<ProductForm parentRef={{ handleClose }} ></ProductForm>
 				</Dialog>
 			</Draggable>
 

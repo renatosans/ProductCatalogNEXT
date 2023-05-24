@@ -1,4 +1,6 @@
 
+export type closeReason = 'backdropClick' | 'escapeKeyDown' | 'closeButtonClick' | 'submitClicked';
+
 export type dialogType = {
     open: boolean;
     setOpen: (value: boolean) => void;

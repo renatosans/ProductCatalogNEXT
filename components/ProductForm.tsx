@@ -11,7 +11,7 @@ type props = {
 	}
 }
 
-export const ProductForm = ({ parentRef }: React.PropsWithChildren<props>) => {
+export const ProductForm = ({ parentRef }: props) => {
 	const router = useRouter();
 
 	const [product, setProduct] = useState({

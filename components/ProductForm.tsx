@@ -9,6 +9,7 @@ import toast, { Toaster, ToastOptions } from 'react-hot-toast'
 // Split the image into slices using  https://www.npmjs.com/package/image-to-slices
 // Then send the slices to the server using one request for each slice
 // You can also use the old fashioned  multipart/form-data
+// Or try spliting the file on the frontend and merging it on the backend   https://www.npmjs.com/package/split-file
 
 type props = {
     parentRef: {
